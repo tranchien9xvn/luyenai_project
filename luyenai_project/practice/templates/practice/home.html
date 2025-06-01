@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chọn Tuần Học - Luyện AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: white;
+    }
+    .glass-card {
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255 255 255 / 0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 3rem auto;
+    }
+    .btn-primary {
+      @apply bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition duration-300 hover:from-purple-700 hover:to-indigo-700 hover:shadow-xl;
+    }
+    .btn-primary i {
+      @apply mr-2;
+    }
+    a.week-card {
+      @apply block bg-white/10 rounded-xl p-5 mb-4 shadow hover:bg-white/20 transition cursor-pointer;
+      font-weight: 600;
+      font-size: 1.125rem;
+      text-decoration: none;
+      color: white;
+      border-left: 6px solid transparent;
+      transition: border-color 0.3s;
+    }
+    a.week-card:hover {
+      border-left-color: #f59e0b; /* màu vàng */
+      background-color: rgba(255 255 255 / 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h1 class="text-3xl font-bold mb-8 text-center gradient-text" style="background: linear-gradient(90deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      Chọn Tuần Học
+    </h1>
+
+    <div class="mb-8 text-center">
+      <a href="{% url 'practice:upload_exercise' %}" class="btn-primary inline-flex items-center justify-center mx-auto max-w-xs">
+        <i class="fas fa-plus"></i> Tạo Bài Tập Mới
+      </a>
+    </div>
+
+    <div>
+      {% if weeks %}
+        {% for week in weeks %}
+          <a href="{% url 'practice:exercise_list' week.number %}" class="week-card">
+            <i class="fas fa-calendar-week mr-3 text-yellow-400"></i>
+            Tuần {{ week.number }}: {{ week.title }}
+          </a>
+        {% endfor %}
+      {% else %}
+        <p class="text-center text-yellow-300 font-semibold text-lg">
+          Chưa có tuần học nào.
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="{% url 'main:index' %}" class="text-yellow-300 font-semibold hover:underline inline-flex items-center justify-center">
+        <i class="fas fa-arrow-left mr-2"></i> Trở về Trang Chủ
+      </a>
+    </div>
+  </div>
+</body>
+</html>

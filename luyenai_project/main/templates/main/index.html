@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Luyện AI - Nền tảng học tập thông minh</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    /* Custom Gradient Text */
+    .gradient-text {
+      background: linear-gradient(90deg, #4f46e5, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+      background: rgba(255 255 255 / 0.15);
+      border-radius: 1rem;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255 255 255 / 0.2);
+      box-shadow: 0 8px 32px rgb(79 70 229 / 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgb(79 70 229 / 0.3);
+    }
+
+    /* Button Primary */
+    .btn-primary {
+      background: linear-gradient(90deg, #4f46e5, #ec4899);
+      color: white;
+      padding: 0.75rem 1.75rem;
+      font-weight: 700;
+      border-radius: 9999px;
+      transition: background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      user-select: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #4338ca, #db2777);
+    }
+    .btn-primary:focus-visible {
+      outline: 3px solid #db2777;
+      outline-offset: 2px;
+    }
+
+    /* Utility */
+    .icon-large {
+      font-size: 2.5rem;
+      color: #ec4899;
+    }
+    .icon-muted {
+      color: #a78bfa;
+    }
+    /* Scroll bar for activity */
+    .activity-scroll {
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #a78bfa transparent;
+    }
+    .activity-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .activity-scroll::-webkit-scrollbar-thumb {
+      background-color: #a78bfa;
+      border-radius: 3px;
+    }
+
+    /* Activity block */
+    .activity-block {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      transition: transform 0.15s ease;
+    }
+    .activity-block:hover {
+      transform: scale(1.4);
+      z-index: 10;
+      box-shadow: 0 0 10px #a78bfa;
+    }
+    /* Colors scale */
+    .activity-low {
+      background-color: #ddd6fe;
+    }
+    .activity-mid {
+      background-color: #a78bfa;
+    }
+    .activity-high {
+      background-color: #7c3aed;
+    }
+    .activity-top {
+      background-color: #5b21b6;
+    }
+
+    /* Loader spinner */
+    .loader {
+      border: 3px solid #e0e0e0;
+      border-top: 3px solid #4f46e5;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-indigo-900 via-purple-900 to-pink-900 text-white min-h-screen flex flex-col">
+  <header class="flex justify-center py-12 px-6">
+    <div class="flex items-center gap-4 max-w-4xl w-full">
+      <div class="rounded-full bg-gradient-to-br from-purple-600 to-pink-600 p-4 shadow-lg">
+        <i class="fas fa-robot icon-large"></i>
+      </div>
+      <h1 class="text-4xl font-extrabold gradient-text select-none">
+        Khóa học AI
+        <br>Trung tâm Vạn Xuân
+      </h1>
+      <p class="ml-auto text-lg text-purple-300 font-semibold tracking-wide select-none">Nền tảng học tập thông minh</p>
+    </div>
+  </header>
+
+  <main class="flex-grow container max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+    <!-- Điểm danh -->
+    <section class="glass-card p-8 flex flex-col items-center text-center">
+      <div class="mb-6">
+        <i class="fas fa-calendar-check icon-large"></i>
+      </div>
+      <h2 class="text-2xl font-semibold mb-2 text-purple-200 select-none">Điểm Danh Hằng Ngày</h2>
+      <p class="text-sm text-purple-300 mb-6 max-w-xs">
+        Ghi nhận sự chăm chỉ của bạn mỗi ngày. Điểm danh đều giúp nâng cao thành tích luyện tập.
+      </p>
+      <form method="get" action="{% url 'checkin:checkin' %}" class="w-full">
+        <button type="submit" class="btn-primary w-full text-center">
+          <i class="fas fa-check mr-2"></i> Điểm Danh Ngay
+        </button>
+      </form>
+    </section>
+
+    <!-- Luyện tập -->
+    <section class="glass-card p-8 flex flex-col items-center text-center">
+      <div class="mb-6">
+        <i class="fas fa-graduation-cap icon-large"></i>
+      </div>
+      <h2 class="text-2xl font-semibold mb-2 text-purple-200 select-none">Luyện Tập</h2>
+      <p class="text-sm text-purple-300 mb-6 max-w-xs">
+        Tham gia các bài tập, kiểm tra kiến thức và nâng cao kỹ năng mỗi ngày.
+      </p>
+        <button onclick="location.href='{% url 'practice:practice_home' %}'" class="btn-primary w-full text-center" type="button">
+        <i class="fas fa-book mr-2"></i> Vào Học Đường
+        </button>
+
+    </section>
+
+    <!-- Hỏi Thầy AI -->
+    <section class="glass-card p-8 flex flex-col items-center text-center">
+      <div class="mb-6">
+        <i class="fas fa-robot icon-large"></i>
+      </div>
+      <h2 class="text-2xl font-semibold mb-2 text-purple-200 select-none">Hỏi Thầy AI</h2>
+      <p class="text-sm text-purple-300 mb-6 max-w-xs">
+        Trao đổi và nhận lời khuyên từ trợ lý AI thông minh mọi lúc mọi nơi.
+      </p>
+<form action="{% url 'chatforteacher:chat_with_ai' %}" method="get" target="_blank" style="margin:0;">
+  <button type="submit" class="btn-primary w-full text-center">
+    <i class="fas fa-comments mr-2"></i> Trò Chuyện Ngay
+  </button>
+</form>
+
+
+
+    </section>
+  </main>
+
+  <section class="container max-w-5xl mx-auto px-6 mt-16 space-y-12">
+    <!-- Tiến độ luyện tập -->
+    <article class="glass-card p-8">
+      <h3 class="text-xl font-semibold mb-4 select-none">Tiến Độ Luyện Tập</h3>
+      <div class="flex flex-col md:flex-row gap-6 md:gap-12">
+        <div class="flex-1 text-center">
+          <div class="text-5xl font-bold text-indigo-300 select-none">1</div>
+          <div class="mt-1 text-purple-300">Ngày luyện tập</div>
+        </div>
+        <div class="flex-1 text-center">
+          <div class="text-5xl font-bold text-pink-300 select-none">1</div>
+          <div class="mt-1 text-purple-300">Ngày liên tiếp</div>
+        </div>
+        <div class="flex-1 text-center">
+          <div class="text-5xl font-bold text-purple-400 select-none">1</div>
+          <div class="mt-1 text-purple-300">Kỷ lục liên tiếp</div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <label for="progress" class="text-sm text-purple-300 mb-2 block select-none">Mốc tiếp theo: 7 ngày</label>
+        <div id="progress" class="w-full bg-purple-800 rounded-full h-4 overflow-hidden">
+          <div
+            class="h-4 rounded-full bg-gradient-to-r from-pink-500 to-indigo-500 transition-all duration-700"
+            style="width: 14%;"
+          ></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Lịch sử hoạt động -->
+    <article class="glass-card p-8">
+      <h3 class="text-xl font-semibold mb-4 select-none">Lịch Sử Hoạt Động</h3>
+      <div
+        class="flex gap-1 overflow-x-auto activity-scroll py-2"
+        aria-label="Lịch sử hoạt động gần đây"
+        role="list"
+      >
+        <!-- Ví dụ 50 ngày, 1 block active, các block khác ít hoạt động -->
+        <div class="activity-block activity-high" role="listitem" title="Ngày 1: Hoạt động cao"></div>
+        <div class="activity-block activity-low" role="listitem" title="Ngày 2: Ít hoạt động"></div>
+        <div class="activity-block activity-mid" role="listitem" title="Ngày 3: Hoạt động trung bình"></div>
+        <!-- Tự động tạo thêm 47 block màu nhạt -->
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const container = document.querySelector(".activity-scroll");
+            for (let i = 4; i <= 50; i++) {
+              const block = document.createElement("div");
+              block.classList.add("activity-block", "activity-low");
+              block.setAttribute("role", "listitem");
+              block.setAttribute("title", `Ngày ${i}: Hoạt động thấp`);
+              container.appendChild(block);
+            }
+          });
+        </script>
+      </div>
+      <div class="flex justify-between text-purple-400 text-sm mt-2 select-none">
+        <span>Ít</span>
+        <span>Rất nhiều</span>
+      </div>
+    </article>
+  </section>
+
+  <footer class="text-center text-purple-400 py-8 select-none">
+    &copy; 2025 Luyện AI — Học tập thông minh dành cho tất cả mọi người
+  </footer>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bài Tập - Tuần {{ week.number }} - Luyện AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: white;
+    }
+    .glass-card {
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255 255 255 / 0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 720px;
+      margin: 3rem auto;
+    }
+    a.exercise-card {
+      @apply block bg-white/10 rounded-xl p-5 mb-4 shadow hover:bg-white/20 transition cursor-pointer;
+      font-weight: 600;
+      font-size: 1.125rem;
+      text-decoration: none;
+      color: white;
+      border-left: 6px solid transparent;
+      transition: border-color 0.3s;
+    }
+    a.exercise-card:hover {
+      border-left-color: #f59e0b; /* màu vàng */
+      background-color: rgba(255 255 255 / 0.25);
+    }
+    .btn-back {
+      @apply inline-flex items-center text-yellow-300 font-semibold hover:underline mt-8;
+    }
+    .btn-back i {
+      @apply mr-2;
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h1 class="text-3xl font-bold mb-8 text-center gradient-text" style="background: linear-gradient(90deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      Bài Tập - Tuần {{ week.number }}
+    </h1>
+
+    <div>
+      {% if exercises %}
+        {% for ex in exercises %}
+          <a href="{% url 'practice:do_exercise' week.number ex.id %}" class="exercise-card">
+            <i class="fas fa-book-open mr-3 text-yellow-400"></i>
+            {{ ex.title }}
+          </a>
+        {% endfor %}
+      {% else %}
+        <p class="text-center text-yellow-300 font-semibold text-lg">
+          Chưa có bài tập nào cho tuần này.
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="text-center">
+      <a href="{% url 'practice:practice_home' %}" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Chọn tuần khác
+      </a>
+    </div>
+  </div>
+</body>
+</html>
